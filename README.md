@@ -857,9 +857,3 @@ onScroll(); reveal();
 </script>
 </body>
 </html>
-
-onScroll(); reveal();
-})();
-</script>
-</body>
-</html>
