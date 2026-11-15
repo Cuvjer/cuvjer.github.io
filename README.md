@@ -29,7 +29,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 /* zijmenu */
 .app{flex:1;min-height:0;display:flex}
-.side{flex:0 0 14.5rem;display:flex;flex-direction:column;gap:.3rem;padding:1rem .9rem;background:var(--bar);border-right:1px solid var(--line);z-index:30;overflow:hidden}
+.side{flex:0 0 min(14.5rem,26vw);display:flex;flex-direction:column;gap:.3rem;padding:1rem .9rem;background:var(--bar);border-right:1px solid var(--line);z-index:30;overflow:hidden}
 .brand{display:flex;align-items:center;gap:.6rem;background:none;border:0;padding:.2rem .3rem;font-family:var(--serif);font-size:1.12rem;font-weight:600;text-align:left;line-height:1.15}
 .brand svg{width:1.9rem;height:1.6rem;flex:none}
 .menutitle{margin:1rem .5rem .2rem;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--brass)}
@@ -48,17 +48,17 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 /* pagina's */
 main{flex:1;min-height:0;position:relative}
-.page{position:absolute;inset:0;display:none;padding:clamp(12px,2.6vh,30px) clamp(14px,4vw,40px) clamp(14px,2.6vh,30px)}
+.page{position:absolute;inset:0;display:none;padding:clamp(14px,3vh,44px) clamp(16px,3.6vw,64px)}
 .page.on{display:block;animation:in .3s ease both}
 @keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.wrap{height:100%;max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(18px,3vw,44px)}
+.wrap{height:100%;width:100%;display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(18px,3.2vw,64px)}
 .txt{align-self:center;min-width:0;display:flex;flex-direction:column;gap:.75rem}
 .txt h2{font-size:clamp(1.55rem,3.4vh,2.3rem);color:var(--cream)}
 .kicker{font-family:var(--serif);font-style:italic;color:var(--brass);font-size:1rem;margin-bottom:-.35rem}
 .txt p{color:var(--muted);font-size:1rem}
 .txt p b{color:var(--cream)}
-.ph{min-height:0;position:relative;border-radius:8px;overflow:hidden;border:1px solid var(--line);background:#0b0603;box-shadow:0 14px 40px rgba(0,0,0,.5);width:100%;max-width:30rem;justify-self:center}
-.ph.land{align-self:center;height:auto;aspect-ratio:var(--ar);max-width:40rem}
+.ph{min-height:0;position:relative;border-radius:8px;overflow:hidden;border:1px solid var(--line);background:#0b0603;box-shadow:0 14px 40px rgba(0,0,0,.5);width:100%}
+.ph.land{align-self:center;height:auto;aspect-ratio:var(--ar)}
 .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .ph.contain img{object-fit:contain}
 .ph figcaption{position:absolute;left:0;right:0;bottom:0;padding:1.6rem .9rem .6rem;background:linear-gradient(transparent,rgba(10,5,2,.9));font-family:var(--serif);font-style:italic;font-size:.95rem}
@@ -129,7 +129,6 @@ main{flex:1;min-height:0;position:relative}
   .card{padding:.5rem .7rem}
 }
 @media (max-width:900px) and (max-height:700px){ .ph{display:none} .wrap{grid-template-rows:auto} }
-@media (min-width:901px) and (max-width:1100px){.side{flex-basis:12.5rem}}
 @media (max-height:480px){#hours2{display:none} .dr{padding:.25rem 0}.txt{gap:.5rem} .side{padding:.6rem .7rem}.menutitle{margin-top:.5rem}.nav button{padding:.3rem .6rem}}
 @media (prefers-reduced-motion:reduce){.page.on{animation:none}.slides i{transition:none}}
 </style>
@@ -381,7 +380,22 @@ const EVENTS=[
     :'<p>Binnenkort staat hier weer de nieuwe agenda. Bel of loop gerust even binnen.</p>';
 })();
 
-show(location.hash.slice(1)||'home');
+/* vult het hele scherm: tekst zo groot mogelijk zonder scrollen */
+function fit(){
+  const root=document.documentElement, p=$('.page.on'); if(!p) return;
+  const t=p.querySelector('.txt')||p.querySelector('.welcome'), w=p.querySelector('.wrap');
+  let fs=Math.max(13,Math.min(innerHeight*.036,innerWidth*.043,23));
+  for(;fs>=12;fs-=.5){
+    root.style.fontSize=fs+'px';
+    const ph=p.querySelector('.ph'), phOn=ph&&getComputedStyle(ph).display!=='none'&&innerWidth<=900;
+    if(t.offsetHeight+(phOn?innerHeight*.17:0)<=w.clientHeight) break;
+  }
+}
+let fitT; const fitSoon=()=>{clearTimeout(fitT);fitT=setTimeout(fit,30)};
+addEventListener('resize',fitSoon); addEventListener('orientationchange',fitSoon);
+new MutationObserver(fitSoon).observe(document.querySelector('main'),{subtree:true,attributes:true,attributeFilter:['class']});
+if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fit);
+show(location.hash.slice(1)||'home'); fit();
 </script>
 </body>
 </html>
