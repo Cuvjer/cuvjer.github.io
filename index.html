@@ -11,7 +11,7 @@
 <meta property="og:description" content="Het donkerbruinste café van Uden. Elisabethstraat 25, tel. 06-30862200.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="nl_NL">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BarOrPub","name":"Café de Nachtegaal","telephone":"+31630862200","address":{"@type":"PostalAddress","streetAddress":"Elisabethstraat 25","postalCode":"5402 VD","addressLocality":"Uden","addressCountry":"NL"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.7","reviewCount":"77"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Sunday","Saturday"],"opens":"13:00","closes":"01:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Monday","opens":"13:00","closes":"22:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Thursday","Friday"],"opens":"15:00","closes":"01:00"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BarOrPub","name":"Café de Nachtegaal","telephone":"+31630862200","address":{"@type":"PostalAddress","streetAddress":"Elisabethstraat 25","postalCode":"5402 VD","addressLocality":"Uden","addressCountry":"NL"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.7","reviewCount":"77"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":"Sunday","opens":"13:00","closes":"00:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"13:00","closes":"01:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Monday","opens":"13:00","closes":"22:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Thursday","Friday"],"opens":"15:00","closes":"01:00"}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;1,400&family=Karla:wght@400;700&display=swap" rel="stylesheet">
@@ -32,7 +32,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .side{flex:0 0 min(14.5rem,26vw);display:flex;flex-direction:column;gap:.3rem;padding:1rem .9rem;background:var(--bar);border-right:1px solid var(--line);z-index:30;overflow:hidden}
 .brand{display:flex;align-items:center;gap:.6rem;background:none;border:0;padding:.2rem .3rem;font-family:var(--serif);font-size:1.12rem;font-weight:600;text-align:left;line-height:1.15}
 .brand svg{width:1.9rem;height:1.6rem;flex:none}
-.menutitle{margin:1rem .5rem .2rem;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--brass)}
+.menutitle{margin:1rem .5rem .2rem;font-size:max(11px,.72rem);letter-spacing:.16em;text-transform:uppercase;color:var(--brass)}
 .nav{display:flex;flex-direction:column;gap:.15rem}
 .nav button{background:none;border:0;border-left:3px solid transparent;border-radius:0 4px 4px 0;text-align:left;padding:.55rem .7rem;font-size:1rem;color:var(--muted)}
 .nav button:hover{color:var(--cream);background:rgba(209,153,63,.08)}
@@ -79,10 +79,10 @@ main{flex:1;min-height:0;position:relative}
 .ev{display:grid;grid-template-columns:3.4rem 1fr auto;gap:.8rem;align-items:center;padding:.55rem .7rem;border:1px solid var(--line);border-radius:5px;background:var(--panel)}
 .ev .d{text-align:center;font-family:var(--serif);line-height:1}
 .ev .d b{display:block;font-size:1.5rem;color:var(--brass-hi)}
-.ev .d small{font-family:var(--sans);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.ev .d small{font-family:var(--sans);font-size:max(11px,.7rem);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 .ev h3{font-size:1.02rem;line-height:1.2}
-.ev em{font-style:normal;font-size:.82rem;color:var(--muted)}
-.tag{font-size:.74rem;font-weight:700;padding:.2rem .55rem;border:1px solid var(--brass);border-radius:99px;color:var(--brass-hi);white-space:nowrap}
+.ev em{font-style:normal;font-size:max(12px,.82rem);color:var(--muted)}
+.tag{font-size:max(11.5px,.74rem);font-weight:700;padding:.2rem .55rem;border:1px solid var(--brass);border-radius:99px;color:var(--brass-hi);white-space:nowrap}
 .evs{display:flex;flex-direction:column;gap:.5rem}
 
 /* drankjes */
@@ -114,8 +114,8 @@ main{flex:1;min-height:0;position:relative}
 
 /* mobiel */
 @media (max-width:900px){
-  .side{position:fixed;left:0;top:0;bottom:0;width:min(78vw,16rem);flex:none;transform:translateX(-102%);transition:transform .25s ease;box-shadow:0 0 30px rgba(0,0,0,.6)}
-  body.menu-open .side{transform:none}
+  .side{position:fixed;left:0;top:0;bottom:0;width:min(78vw,16rem);flex:none;transform:translateX(-102%);visibility:hidden;transition:transform .25s ease,visibility 0s .25s;box-shadow:0 0 30px rgba(0,0,0,.6)}
+  body.menu-open .side{transform:none;visibility:visible;transition:transform .25s ease,visibility 0s}
   .scrim{display:block;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:20;opacity:0;pointer-events:none;transition:opacity .25s}
   body.menu-open .scrim{opacity:1;pointer-events:auto}
   .mbar{display:flex;flex:0 0 auto;height:3.2rem;align-items:center;gap:.7rem;padding:0 .8rem;background:var(--bar);border-bottom:1px solid var(--line)}
@@ -226,7 +226,7 @@ main{flex:1;min-height:0;position:relative}
   <div class="wrap">
     <div class="txt">
       <span class="kicker">Onze drankjes</span>
-      <h2>Een Duits engeltje op je tong</h2>
+      <h2>Koud, lekker en betaalbaar</h2>
       <div>
         <div class="dr"><b>Van de tap</b><span><strong>Zachte Premium.</strong> Een Duits engeltje op je tong.</span></div>
         <div class="dr"><b>Fris</b><span>Frisdranken en sapjes.</span></div>
@@ -298,8 +298,6 @@ main{flex:1;min-height:0;position:relative}
       <div class="acts">
         <a class="btn gold" href="tel:+31630862200">Bel ons</a>
         <a class="btn" href="https://www.google.com/maps/dir/?api=1&amp;destination=Elisabethstraat+25,+5402+VD+Uden" target="_blank" rel="noopener">Route</a>
-        <a class="btn" href="https://www.facebook.com/search/top?q=Caf%C3%A9%20de%20Nachtegaal%20Uden" target="_blank" rel="noopener">Facebook</a>
-        <a class="btn" href="https://www.instagram.com/explore/search/keyword/?q=Caf%C3%A9%20de%20Nachtegaal%20Uden" target="_blank" rel="noopener">Instagram</a>
       </div>
     </div>
     <figure class="ph" style="margin:0"><img data-k="bar_glazen" alt="Glazen aan de bar van Café de Nachtegaal"></figure>
@@ -384,7 +382,7 @@ const EVENTS=[
 function fit(){
   const root=document.documentElement, p=$('.page.on'); if(!p) return;
   const t=p.querySelector('.txt')||p.querySelector('.welcome'), w=p.querySelector('.wrap');
-  let fs=Math.max(13,Math.min(innerHeight*.036,innerWidth*.043,23));
+  let fs=Math.max(13,Math.min(innerHeight*.036,innerWidth*.043,26));
   for(;fs>=12;fs-=.5){
     root.style.fontSize=fs+'px';
     const ph=p.querySelector('.ph'), phOn=ph&&getComputedStyle(ph).display!=='none'&&innerWidth<=900;
